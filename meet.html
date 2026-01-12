@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Access | Private Meet & Greet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-dark: #050505;
+            --card-bg: #121212;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            
+            /* Neon Palette */
+            --neon-blue: #00f3ff;
+            --neon-green: #00ff41;
+            --neon-purple: #bc13fe; 
+            --neon-pink: #ff0055;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- BACKGROUND EFFECTS --- */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(188, 19, 254, 0.08) 0%, transparent 40%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* --- HEADER --- */
+        header {
+            text-align: center;
+            padding: 80px 20px 40px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- PRICING CONTAINER --- */
+        .pricing-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- CARDS --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Specific Card Styles */
+        .card-regular {
+            border-top: 4px solid var(--neon-blue);
+        }
+        .card-regular:hover {
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .card-vip {
+            border-top: 4px solid var(--neon-green);
+        }
+        .card-vip:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .card-vvip {
+            border-top: 4px solid var(--neon-purple);
+            background: linear-gradient(180deg, #1a0524 0%, var(--card-bg) 100%);
+            border: 1px solid var(--neon-purple);
+        }
+        .card-vvip:hover {
+            box-shadow: 0 0 40px rgba(188, 19, 254, 0.3);
+        }
+
+        /* Card Content */
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .features li {
+            margin-bottom: 15px;
+            color: #ccc;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .features li::before {
+            content: "•";
+            color: inherit; /* will be overridden by classes below */
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .accent-blue { color: var(--neon-blue); }
+        .accent-green { color: var(--neon-green); }
+        .accent-purple { color: var(--neon-purple); }
+
+        .btn-select {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: opacity 0.3s;
+            margin-top: auto;
+        }
+
+        .btn-blue { background: var(--neon-blue); }
+        .btn-green { background: var(--neon-green); }
+        .btn-purple { background: var(--neon-purple); color: white; }
+
+        .btn-select:hover { opacity: 0.8; }
+
+        /* --- INFO & FOOTER --- */
+        .process-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, transparent, #0a0a0a);
+        }
+
+        .process-box {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
+            .card { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <header>
+        <h1>Exclusive <span class="gradient-text">Meet & Greet</span></h1>
+        <p>Experience the unforgettable. Select your level of access below.</p>
+    </header>
+
+    <div class="pricing-container">
+        
+        <div class="card card-regular">
+            <h3 class="card-title accent-blue">Regular Access</h3>
+            <span class="price">€1,800</span>
+            <ul class="features">
+                <li><span class="accent-blue">✔</span> Professional Supervision</li>
+                <li>Private meeting with our client</li>
+                <li>Security staff present at all times</li>
+                <li>Photo opportunity included</li>
+            </ul>
+            <a href="mailto:worldwidefanfamily@gmail.com?subject=Booking Inquiry: Regular Ticket" class="btn-select btn-blue">Select Regular</a>
+        </div>
+
+        <div class="card card-vip">
+            <h3 class="card-title accent-green">VIP Private</h3>
+            <span class="price">€2,500</span>
+            <ul class="features">
+                <li><span class="accent-green">✔</span> 2 Days Duration</li>
+                <li>Exclusive 1-on-1 Meeting</li>
+                <li><strong>Choice of Experience:</strong><br>1-Day Helicopter Cruise <br><em>OR</em><br>1-Day Boat Trip</li>
+                <li>Personalized itinerary</li>
+            </ul>
+            <a href="mailto:worldwidefanfamily@gmail.com?subject=Booking Inquiry: VIP Ticket" class="btn-select btn-green">Select VIP</a>
+        </div>
+
+        <div class="card card-vvip">
+            <h3 class="card-title accent-purple">VVIP Ultimate</h3>
+            <span class="price">€4,800</span>
+            <ul class="features">
+                <li><span class="accent-purple">✔</span> <strong>1 Week Duration</strong></li>
+                <li>Unsupervised / Private Setting</li>
+                <li><strong>Special Inclusive:</strong><br>3-Day Private Helicopter Tour <br><em>OR</em><br>3-Day Luxury Boat Trip</li>
+                <li>Complete exclusivity</li>
+            </ul>
+            <a href="mailto:worldwidefanfamily@gmail.com?subject=Booking Inquiry: VVIP Ticket" class="btn-select btn-purple">Select VVIP</a>
+        </div>
+
+    </div>
+
+    <section class="process-section">
+        <div class="process-box">
+            <h2 style="margin-bottom: 20px;">Booking Process</h2>
+            <p style="margin-bottom: 20px; color: #ccc;">
+                Once you make a choice, you will receive our <strong>controlled form</strong>. 
+                We would like to hear from you which tickets you have chosen for the private meet and greet.
+            </p>
+            <p style="margin-bottom: 30px; color: #ccc;">
+                The payment details will be sent to you securely after you have indicated your interest.
+            </p>
+            
+            <a href="mailto:worldwidefanfamily@gmail.com" class="contact-btn">Book Now</a>
+            
+            <p style="margin-top: 30px; font-size: 0.9rem; color: #888;">
+                Book Management: worldwidefanfamily@gmail.com
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Thanks again for the love and support for our customer.</p>
+        <p>&copy; 2024 Management Team. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
